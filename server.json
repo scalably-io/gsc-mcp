@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.scalably/gsc-mcp",
   "title": "Google Search Console MCP",
-  "description": "Read-only MCP server for Google Search Console: sites, Search Analytics with auto-pagination and hourly data, sitemaps, URL inspection and batch inspection.",
+  "description": "Read-only Google Search Console MCP: Search Analytics, sitemaps, URL inspection. 5 tools.",
   "repository": {
     "url": "https://github.com/scalably-io/gsc-mcp",
     "source": "github"
