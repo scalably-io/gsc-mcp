@@ -16,6 +16,7 @@ jobs:
       - run: pip install uv && uv build
       - uses: pypa/gh-action-pypi-publish@release/v1
   mcpb:
+    needs: pypi
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -25,6 +26,6 @@ jobs:
         with: { node-version: "22" }
       - run: npx -y @anthropic-ai/mcpb@2.1.2 validate manifest.json
       - run: npx -y @anthropic-ai/mcpb@2.1.2 pack . "${GITHUB_REPOSITORY#*/}.mcpb"
-      - run: sha256sum "${GITHUB_REPOSITORY#*/}.mcpb" | cut -d' ' -f1 > "${GITHUB_REPOSITORY#*/}.mcpb.sha256"
+      - run: printf '%s' "$(sha256sum "${GITHUB_REPOSITORY#*/}.mcpb" | cut -d' ' -f1)" > "${GITHUB_REPOSITORY#*/}.mcpb.sha256"
       - run: gh release create "${GITHUB_REF_NAME}" "${GITHUB_REPOSITORY#*/}.mcpb" "${GITHUB_REPOSITORY#*/}.mcpb.sha256" --title "${GITHUB_REF_NAME}" --notes "See CHANGELOG.md"
         env: { GH_TOKEN: "${{ github.token }}" }
