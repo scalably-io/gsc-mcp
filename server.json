@@ -33,6 +33,14 @@
           "isSecret": false
         }
       ]
+    },
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/scalably-io/gsc-mcp/releases/download/v1.0.1/gsc-mcp.mcpb",
+      "fileSha256": "a8a1f7a668d08027d2fbb0fbe3308ee4b6e56a51675c6c71ea30a8f0bef11b45",
+      "transport": {
+        "type": "stdio"
+      }
     }
   ]
 }
