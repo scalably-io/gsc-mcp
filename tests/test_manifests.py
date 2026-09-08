@@ -27,6 +27,7 @@ def test_versions_and_names_agree():
     assert manifest["manifest_version"] == "0.4"
     assert server["$schema"] == "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json"
     assert server["name"].startswith("io.scalably/")
+    assert len(server["description"]) <= 100, "registry rejects description > 100 chars (expected length <= 100)"
 
 def test_readme_carries_registry_marker_and_no_em_dash():
     readme = (REPO / "README.md").read_text(encoding="utf-8")
