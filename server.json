@@ -1,0 +1,23 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.scalably/gsc-mcp",
+  "title": "Google Search Console MCP",
+  "description": "Read-only MCP server for Google Search Console: sites, Search Analytics with auto-pagination and hourly data, sitemaps, URL inspection and batch inspection.",
+  "repository": { "url": "https://github.com/scalably-io/gsc-mcp", "source": "github" },
+  "websiteUrl": "https://scalably.io/mcp/gsc-mcp",
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "scalably-gsc-mcp",
+      "version": "1.0.0",
+      "runtimeHint": "uvx",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        { "name": "GOOGLE_APPLICATION_CREDENTIALS", "description": "Path to a Google service-account JSON file with the Search Console read-only scope; share each property with the service account email", "isRequired": true, "isSecret": false },
+        { "name": "GSC_LOG_LEVEL", "description": "Log level, default INFO", "isRequired": false, "isSecret": false }
+      ]
+    }
+  ]
+}
