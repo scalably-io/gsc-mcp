@@ -24,6 +24,7 @@ def test_versions_and_names_agree():
     assert py["version"] == manifest["version"] == server["version"]
     pypi = [p for p in server["packages"] if p["registryType"] == "pypi"][0]
     assert pypi["identifier"] == py["name"] and pypi["version"] == py["version"]
+    assert py["name"] in py["scripts"], "console script must be named after the distribution so `uvx <name>` runs"
     assert manifest["manifest_version"] == "0.4"
     assert server["$schema"] == "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json"
     assert server["name"].startswith("io.scalably/")

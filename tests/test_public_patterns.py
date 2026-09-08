@@ -1,4 +1,5 @@
 import re
+import subprocess
 import pytest
 from conftest import REPO
 
@@ -14,14 +15,26 @@ FORBIDDEN = [
     r"[A-Za-z0-9]{30,}",
     "gserviceaccount" + r"\.com",
 ]
-FILES = [p for p in REPO.rglob("*") if p.is_file()
-         and not any(part in {".git", ".venv", ".pytest_cache", "__pycache__", "dist"} for part in p.parts)
-         and (p.suffix in {".md", ".py", ".sh", ".json", ".toml", ".txt", ".yml", ".yaml"} or p.suffix == "")]
+SUFFIXES = {".md", ".py", ".sh", ".json", ".toml", ".txt", ".yml", ".yaml", ""}
+TRACKED = subprocess.run(["git", "ls-files", "-z"], cwd=REPO, check=True, capture_output=True).stdout.decode().split("\0")
+FILES = [REPO / f for f in TRACKED if f and (REPO / f).is_file() and (REPO / f).suffix in SUFFIXES]
+
+
+def _exempt(line: str) -> bool:
+    # The release runbook writes the bundle digest into server.json; a sha256 is not a secret.
+    return "fileSha256" in line
+
 
 @pytest.mark.parametrize("path", FILES, ids=lambda p: str(p.relative_to(REPO)))
 def test_no_forbidden_patterns(path):
-    text = path.read_text(encoding="utf-8", errors="replace")
-    for pat in FORBIDDEN:
-        for m in re.finditer(pat, text):
-            line = text.count("\n", 0, m.start()) + 1
-            pytest.fail(f"{path.relative_to(REPO)}:{line} matches {pat!r}: {m.group(0)[:60]}")
+    for number, line in enumerate(path.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
+        if _exempt(line):
+            continue
+        for pat in FORBIDDEN:
+            m = re.search(pat, line)
+            if m:
+                pytest.fail(f"{path.relative_to(REPO)}:{number} matches {pat!r}: {m.group(0)[:60]}")
+
+
+def test_tracked_files_enumerated():
+    assert any(p.name == "server.json" for p in FILES) and any(p.suffix == ".py" for p in FILES)

@@ -2,32 +2,93 @@
   "manifest_version": "0.4",
   "name": "gsc-mcp",
   "display_name": "Google Search Console MCP",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Read-only MCP server for Google Search Console: sites, Search Analytics with auto-pagination and hourly data, sitemaps, URL inspection and batch inspection.",
-  "author": { "name": "Scalably", "email": "hello@scalably.io", "url": "https://scalably.io" },
-  "repository": { "type": "git", "url": "https://github.com/scalably-io/gsc-mcp" },
+  "author": {
+    "name": "Scalably",
+    "email": "hello@scalably.io",
+    "url": "https://scalably.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scalably-io/gsc-mcp"
+  },
   "homepage": "https://scalably.io/mcp/gsc-mcp",
   "license": "MIT",
-  "keywords": ["mcp", "model-context-protocol", "google-search-console", "seo", "scalably"],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "google-search-console",
+    "seo",
+    "scalably"
+  ],
   "server": {
     "type": "uv",
     "entry_point": "src/scalably_gsc_mcp/__main__.py",
     "mcp_config": {
       "command": "uv",
-      "args": ["run", "--directory", "${__dirname}", "python", "-m", "scalably_gsc_mcp"],
-      "env": { "GOOGLE_APPLICATION_CREDENTIALS": "${user_config.service_account_json}", "GSC_LOG_LEVEL": "${user_config.log_level}" }
+      "args": [
+        "run",
+        "--directory",
+        "${__dirname}",
+        "python",
+        "-m",
+        "scalably_gsc_mcp"
+      ],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "${user_config.service_account_json}",
+        "GSC_LOG_LEVEL": "${user_config.log_level}"
+      }
     }
   },
   "tools": [
-    { "name": "gsc_list_sites", "description": "List the Search Console properties the service account can read" },
-    { "name": "gsc_query_search_analytics", "description": "Query Search Analytics with filters, auto-pagination and hourly data" },
-    { "name": "gsc_list_sitemaps", "description": "List sitemaps for a property or read one sitemap" },
-    { "name": "gsc_inspect_url", "description": "Inspect one URL's index status" },
-    { "name": "gsc_batch_inspect_urls", "description": "Inspect many URLs with client-side throttling" }
+    {
+      "name": "gsc_list_sites",
+      "description": "List the Search Console properties the service account can read"
+    },
+    {
+      "name": "gsc_query_search_analytics",
+      "description": "Query Search Analytics with filters, auto-pagination and hourly data"
+    },
+    {
+      "name": "gsc_list_sitemaps",
+      "description": "List sitemaps for a property or read one sitemap"
+    },
+    {
+      "name": "gsc_inspect_url",
+      "description": "Inspect one URL's index status"
+    },
+    {
+      "name": "gsc_batch_inspect_urls",
+      "description": "Inspect many URLs with client-side throttling"
+    }
   ],
   "user_config": {
-    "service_account_json": { "type": "file", "title": "Service account JSON", "description": "Google service-account key file with the webmasters.readonly scope", "required": true, "sensitive": true },
-    "log_level": { "type": "string", "title": "Log level", "description": "INFO or DEBUG", "default": "INFO", "required": false, "sensitive": false }
+    "service_account_json": {
+      "type": "file",
+      "title": "Service account JSON",
+      "description": "Google service-account key file with the webmasters.readonly scope",
+      "required": true,
+      "sensitive": true
+    },
+    "log_level": {
+      "type": "string",
+      "title": "Log level",
+      "description": "INFO or DEBUG",
+      "default": "INFO",
+      "required": false,
+      "sensitive": false
+    }
   },
-  "compatibility": { "claude_desktop": ">=0.10.0", "platforms": ["darwin", "win32", "linux"], "runtimes": { "python": ">=3.10" } }
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "python": ">=3.10"
+    }
+  }
 }

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "scalably-gsc-mcp"
-version = "1.0.0"
+version = "1.0.1"
 description = "Read-only MCP server for Google Search Console: sites, Search Analytics with auto-pagination and hourly data, sitemaps, URL inspection and batch inspection."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -18,7 +18,7 @@ dependencies = ["mcp>=1.6.0,<2", "requests>=2.32.3", "google-auth>=2.20.0"]
 dev = ["pytest>=8"]
 
 [project.scripts]
-gsc-mcp = "scalably_gsc_mcp.server:main"
+scalably-gsc-mcp = "scalably_gsc_mcp.server:main"
 
 [project.urls]
 Homepage = "https://scalably.io/mcp/gsc-mcp"
