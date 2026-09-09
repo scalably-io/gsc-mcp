@@ -50,7 +50,7 @@ No OAuth consent screen is needed; the server authenticates as the service accou
 
 ## Reply shape
 
-Every tool returns JSON with `status` (`succeeded`, `partial`, `no_op`), `summary`, `result`, `proof`, `warnings`, `recovery`. A `partial` status with `proof.nextStartRow` means: continue from that row.
+Every tool returns JSON with `status` (`succeeded`, `partial`, `no_op`), `operation`, `summary`, `target`, `result`, `proof`, `warnings`, `recovery`. Failures surface as a tool error whose text is `<code>: <message> <hint>`. A `partial` status with `proof.nextStartRow` means: continue from that row.
 
 ## Limits
 
